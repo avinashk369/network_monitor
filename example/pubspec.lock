@@ -179,9 +179,10 @@ packages:
   network_monitor_cp:
     dependency: "direct main"
     description:
-      path: ".."
-      relative: true
-    source: path
+      name: network_monitor_cp
+      sha256: "55dd21939a6e7bbfadcd69e1238c86845da411c83c70bd42a620bf80356b94b5"
+      url: "https://pub.dev"
+    source: hosted
     version: "0.0.1"
   nm:
     dependency: transitive

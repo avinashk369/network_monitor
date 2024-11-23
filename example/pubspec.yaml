@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  network_monitor_cp:
+  network_monitor_cp: ^0.0.1
 
 
    
