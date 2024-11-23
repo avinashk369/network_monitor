@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:network_monitor/network/network_state.dart';
-import 'package:network_monitor/network/widget/overlay_widget.dart';
+import 'package:network_monitor_cp/network/network_state.dart';
+import 'package:network_monitor_cp/network/widget/overlay_widget.dart';
 import 'network_monitor.dart';
 
 enum ErrorType { overlay, widget }

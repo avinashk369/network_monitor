@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:network_monitor/network/network_state.dart';
-import 'package:network_monitor/network/network_utils.dart';
+import 'package:network_monitor_cp/network/network_state.dart';
+import 'package:network_monitor_cp/network/network_utils.dart';
 
 class OverlayWidget extends StatelessWidget {
   const OverlayWidget({super.key, required this.state});

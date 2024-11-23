@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:network_monitor/network/mixins/network_aware_mixin.dart';
-import 'package:network_monitor/network/network_state.dart';
+import 'package:network_monitor_cp/network/mixins/network_aware_mixin.dart';
+import 'package:network_monitor_cp/network/network_state.dart';
 
 class NetworkMonitorWidget extends StatefulWidget {
   const NetworkMonitorWidget({super.key});

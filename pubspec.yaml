@@ -1,4 +1,4 @@
-name: network_monitor
+name: network_monitor_cp
 description: "Connectivity_plus wrapper to monitor network status in rela time"
 version: 0.0.1
 homepage:

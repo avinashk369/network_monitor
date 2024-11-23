@@ -1,8 +1,8 @@
 import 'package:example/network_status_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:network_monitor/network/network_aware_navigator_observer.dart';
-import 'package:network_monitor/network/network_monitor.dart';
-import 'package:network_monitor/network/network_state.dart';
+import 'package:network_monitor_cp/network/network_aware_navigator_observer.dart';
+import 'package:network_monitor_cp/network/network_monitor.dart';
+import 'package:network_monitor_cp/network/network_state.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

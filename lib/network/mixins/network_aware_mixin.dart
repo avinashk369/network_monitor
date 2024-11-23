@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:network_monitor/network/network_monitor.dart';
-import 'package:network_monitor/network/network_state.dart';
+import 'package:network_monitor_cp/network/network_monitor.dart';
+import 'package:network_monitor_cp/network/network_state.dart';
 
 mixin NetworkAwareMixin {
   StreamSubscription<NetworkState>? _subscription;
