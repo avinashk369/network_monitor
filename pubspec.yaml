@@ -1,5 +1,5 @@
 name: network_monitor
-description: "A new Flutter package project."
+description: "Connectivity_plus wrapper to monitor network status in rela time"
 version: 0.0.1
 homepage:
 
