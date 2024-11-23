@@ -11,29 +11,86 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/to/develop-packages).
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A tiny package to monitor network status on real time. This is wrapper package around connectivity_plus.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+You can monitor network status at following level
+ 1. Global level
+ 2. Screen level
+ 3. Widget level
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+to user this in your flutter application. 
+intialize NetworkMonitor in main method.
+
+```
+await NetworkMonitor().initialize();
+```
+
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+to use it at global level define navigatorObservers parameter inside the material app.
 
-```dart
-const like = 'sample';
+```
+navigatorObservers: [
+        NetworkAwareNavigatorObserver(
+          networkStatusScreen: const NetworkStatusScreen(),
+          errorType: ErrorType.widget,
+        )
+      ],
+```
+
+to use at screen level you can use the mixin class
+
+```
+class _NetworkMonitorWidgetState extends State<NetworkMonitorWidget>
+    with NetworkAwareMixin {
+  @override
+  void initState() {
+    super.initState();
+    initializeNetworkMonitoring((state) {
+      switch (state) {
+        case NetworkState.connected:
+          debugPrint("connection state connected");
+
+          break;
+        case NetworkState.disconnected:
+          debugPrint("connection state disconnected");
+
+          break;
+        case NetworkState.noInternet:
+          debugPrint("connection state no internet");
+
+          break;
+
+        default:
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    disposeNetworkMonitoring();
+  }
+
+```
+
+To use at widget level you can use the streambuilder
+
+```
+StreamBuilder<NetworkState>(
+              stream: NetworkMonitor().state,
+              builder: (context, snapshot) {
+                // Build based on connection state
+                return Text('Network status check ${snapshot.data?.name}');
+              },
+            ),
 ```
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+Feel free to enhance the package by raising the PR and opening the issue.
