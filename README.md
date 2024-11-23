@@ -22,7 +22,7 @@ You can monitor network status at following level
 
 ## Getting started
 
-to user this in your flutter application. 
+to use this in your flutter application. 
 intialize NetworkMonitor in main method.
 
 ```
