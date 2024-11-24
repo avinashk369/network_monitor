@@ -20,9 +20,8 @@ class OverlayWidget extends StatelessWidget {
           curve: Curves.bounceIn,
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-            color: state == NetworkState.disconnected
-                ? Colors.red.withOpacity(0.8)
-                : Colors.orange.withOpacity(0.8),
+            color:
+                state == NetworkState.disconnected ? Colors.red : Colors.orange,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
