@@ -11,15 +11,29 @@ class NetworkMonitor {
   NetworkMonitor._internal();
 
   final _connectivity = Connectivity();
-  final _controller = StreamController<NetworkState>.broadcast();
+  StreamController<NetworkState>? _controller;
   final _lookupAddresses = [
     'google.com',
     'cloudflare.com',
     'apple.com',
   ];
 
-  Stream<NetworkState> get state => _controller.stream;
+  Stream<NetworkState> get state => _monitorNetwork();
   bool _isInitialized = false;
+
+  Stream<NetworkState> _monitorNetwork() {
+    _controller ??= StreamController<NetworkState>.broadcast(
+      onListen: () => _checkConnectivity(),
+      onCancel: () => _stopListening(),
+    );
+
+    return _controller!.stream;
+  }
+
+  void _stopListening() {
+    _controller?.close();
+    _controller = null;
+  }
 
   /// Initialize the network monitor
   Future<void> initialize() async {
@@ -45,14 +59,14 @@ class NetworkMonitor {
     final connectivity = await _connectivity.checkConnectivity();
 
     if (connectivity.contains(ConnectivityResult.none)) {
-      _controller.add(NetworkState.disconnected);
+      _controller?.add(NetworkState.disconnected);
       return;
     }
 
     // Check for actual internet connectivity
     final hasInternet = await _checkInternet();
     _controller
-        .add(hasInternet ? NetworkState.connected : NetworkState.noInternet);
+        ?.add(hasInternet ? NetworkState.connected : NetworkState.noInternet);
   }
 
   Future<bool> _checkInternet() async {
@@ -76,6 +90,6 @@ class NetworkMonitor {
 
   /// Dispose resources
   void dispose() {
-    _controller.close();
+    _controller?.close();
   }
 }
