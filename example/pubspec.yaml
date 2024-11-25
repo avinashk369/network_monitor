@@ -1,6 +1,8 @@
 name: example
 description: "A new Flutter project." 
  
+publish_to: 'none' 
+ 
 version: 1.0.0+1
 
 environment:
@@ -10,7 +12,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  network_monitor_cp: ^0.0.1
+  network_monitor_cp:
+    path: ../../network_monitor
 
 
    

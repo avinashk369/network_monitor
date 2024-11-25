@@ -91,6 +91,12 @@ StreamBuilder<NetworkState>(
             ),
 ```
 
+if you just want to ensure the connection is connected or not you can use this static method.
+
+```
+  final bool isCOnnected = await NetworkMonitor.isConnected();
+```
+
 ## Additional information
 
 Feel free to enhance the package by raising the PR and opening the issue.

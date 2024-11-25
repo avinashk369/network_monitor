@@ -56,9 +56,9 @@ class NetworkMonitor {
   }
 
   Future<void> _checkConnectivity() async {
-    final connectivity = await _connectivity.checkConnectivity();
+    final connectivity = await isConnected();
 
-    if (connectivity.contains(ConnectivityResult.none)) {
+    if (!connectivity) {
       _controller?.add(NetworkState.disconnected);
       return;
     }
@@ -67,6 +67,13 @@ class NetworkMonitor {
     final hasInternet = await _checkInternet();
     _controller
         ?.add(hasInternet ? NetworkState.connected : NetworkState.noInternet);
+  }
+
+  static Future<bool> isConnected() async {
+    final connectivity =
+        await NetworkMonitor()._connectivity.checkConnectivity();
+    return !connectivity.contains(ConnectivityResult.none) &&
+        await NetworkMonitor()._checkInternet();
   }
 
   Future<bool> _checkInternet() async {

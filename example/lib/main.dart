@@ -65,6 +65,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 return Text('Network status check ${snapshot.data?.name}');
               },
             ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+                onPressed: () async {
+                  // bool isCOnnected = await NetworkMonitor.isConnected();
+                },
+                child: const Text("Check Internet"))
           ],
         ),
       ),
