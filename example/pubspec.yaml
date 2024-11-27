@@ -13,7 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   network_monitor_cp:
-    path: ../../network_monitor
+    path: ../
 
 
    
