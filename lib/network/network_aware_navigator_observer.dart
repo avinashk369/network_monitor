@@ -46,7 +46,7 @@ class NetworkAwareNavigatorObserver extends NavigatorObserver {
 
   void _checkNetworkStatus() {
     try {
-      NetworkMonitor().state.listen((state) {
+      NetworkMonitor().state.distinct().listen((state) {
         if (state != NetworkState.connected) {
           _showNetworkStatusScreen(state, errorType);
         } else {
@@ -64,9 +64,7 @@ class NetworkAwareNavigatorObserver extends NavigatorObserver {
             : networkStatusScreen!,
       );
 
-      if (navigator != null && navigator!.overlay != null) {
-        navigator!.overlay!.insert(_networkOverlay!);
-      }
+      navigator?.overlay?.insert(_networkOverlay!);
     }
   }
 

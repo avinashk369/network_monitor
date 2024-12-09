@@ -12,11 +12,10 @@ class NetworkMonitor {
 
   final _connectivity = Connectivity();
   StreamController<NetworkState>? _controller;
-  final _lookupAddresses = [
-    'google.com',
-    'cloudflare.com',
-    'apple.com',
-  ];
+  final _lookupAddresses = ['google.com', 'cloudflare.com', 'apple.com'];
+  bool _isCheckingInternet = false; // Prevent redundant internet checks
+  Timer? _debounceTimer;
+  NetworkState _lastState = NetworkState.connected;
 
   Stream<NetworkState> get state => _monitorNetwork();
   bool _isInitialized = false;
@@ -43,7 +42,7 @@ class NetworkMonitor {
     _checkConnectivity();
 
     // Listen to connectivity changes
-    _connectivity.onConnectivityChanged.listen((result) {
+    _connectivity.onConnectivityChanged.listen((_) {
       _checkConnectivity();
     });
 
@@ -56,17 +55,21 @@ class NetworkMonitor {
   }
 
   Future<void> _checkConnectivity() async {
+    if (_isCheckingInternet) return;
+
+    _isCheckingInternet = true;
     final connectivity = await isConnected();
 
     if (!connectivity) {
-      _controller?.add(NetworkState.disconnected);
-      return;
+      _emitState(NetworkState.disconnected);
+    } else {
+      // Check for actual internet connectivity
+      final hasInternet = await _checkInternet();
+      _emitState(
+          hasInternet ? NetworkState.connected : NetworkState.noInternet);
     }
 
-    // Check for actual internet connectivity
-    final hasInternet = await _checkInternet();
-    _controller
-        ?.add(hasInternet ? NetworkState.connected : NetworkState.noInternet);
+    _isCheckingInternet = false;
   }
 
   static Future<bool> isConnected() async {
@@ -77,26 +80,34 @@ class NetworkMonitor {
   }
 
   Future<bool> _checkInternet() async {
-    try {
-      // Try multiple addresses for reliability
-      for (final address in _lookupAddresses) {
-        try {
-          final result = await InternetAddress.lookup(address);
-          if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-            return true;
-          }
-        } catch (_) {
-          continue;
+    // Try multiple addresses for reliability
+    for (final address in _lookupAddresses) {
+      try {
+        final result = await InternetAddress.lookup(address);
+        if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+          return true;
         }
+      } on SocketException catch (_) {
+        return false;
+      } catch (_) {
+        continue;
       }
-      return false;
-    } on SocketException catch (_) {
-      return false;
     }
+    return false;
   }
 
-  /// Dispose resources
+  void _emitState(NetworkState state) {
+    if (_lastState == state) return;
+
+    _debounceTimer?.cancel();
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
+      _controller?.add(state);
+      _lastState = state;
+    });
+  }
+
   void dispose() {
+    _debounceTimer?.cancel();
     _controller?.close();
   }
 }
