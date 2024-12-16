@@ -47,9 +47,9 @@ class NetworkMonitor {
     });
 
     // Periodic internet check
-    Timer.periodic(const Duration(seconds: 30), (_) {
-      _checkConnectivity();
-    });
+    // Timer.periodic(const Duration(seconds: 30), (_) {
+    //   _checkConnectivity();
+    // });
 
     _isInitialized = true;
   }
