@@ -37,8 +37,11 @@ to use it at global level define navigatorObservers parameter inside the materia
 ```
 navigatorObservers: [
         NetworkAwareNavigatorObserver(
-          networkStatusScreen: const NetworkStatusScreen(),
-          errorType: ErrorType.widget,
+          /// to use a custom network error widget
+          networkStatusScreen: const NetworkStatusScreen(), 
+          /// in case of custom network widget screen, ErrorType.widget is required. 
+          /// By default it will render a overlay to show the network status
+          errorType: ErrorType.widget, 
         )
       ],
 ```

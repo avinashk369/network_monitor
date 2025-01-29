@@ -1,6 +1,6 @@
 name: network_monitor_cp
 description: "Connectivity_plus wrapper to monitor network status in rela time"
-version: 0.0.6
+version: 0.0.7
 homepage: https://github.com/avinashk369/network_monitor
 repository: https://github.com/avinashk369/network_monitor
 issue_tracker: https://github.com/avinashk369/network_monitor/issues

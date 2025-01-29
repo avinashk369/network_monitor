@@ -19,17 +19,11 @@ class _NetworkMonitorWidgetState extends State<NetworkMonitorWidget>
         case NetworkState.connected:
           debugPrint("connection state connected");
 
-          break;
         case NetworkState.disconnected:
           debugPrint("connection state disconnected");
 
-          break;
         case NetworkState.noInternet:
           debugPrint("connection state no internet");
-
-          break;
-
-        default:
       }
     });
   }
